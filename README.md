@@ -1,2 +1,2 @@
-# ScalaVideStream
+# ScalaVideoStream
 Video Stream Test

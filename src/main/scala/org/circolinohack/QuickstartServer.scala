@@ -1,11 +1,11 @@
 package org.circolinohack
 
 //#quick-start-server
-import scala.concurrent.{ Await, ExecutionContext, Future }
+import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.concurrent.duration.Duration
-import scala.util.{ Failure, Success }
+import scala.util.{Failure, Success}
 
-import akka.actor.{ ActorRef, ActorSystem }
+import akka.actor.{ActorRef, ActorSystem}
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
@@ -21,7 +21,8 @@ object QuickstartServer extends App with UserRoutes {
   implicit val executionContext: ExecutionContext = system.dispatcher
   //#server-bootstrapping
 
-  val userRegistryActor: ActorRef = system.actorOf(UserRegistryActor.props, "userRegistryActor")
+  val userRegistryActor: ActorRef =
+    system.actorOf(UserRegistryActor.props, "userRegistryActor")
 
   //#main-class
   // from the UserRoutes trait
@@ -29,11 +30,13 @@ object QuickstartServer extends App with UserRoutes {
   //#main-class
 
   //#http-server
-  val serverBinding: Future[Http.ServerBinding] = Http().bindAndHandle(routes, "localhost", 8080)
+  val serverBinding: Future[Http.ServerBinding] =
+    Http().bindAndHandle(routes, "localhost", 8080)
 
   serverBinding.onComplete {
     case Success(bound) =>
-      println(s"Server online at http://${bound.localAddress.getHostString}:${bound.localAddress.getPort}/")
+      println(
+        s"Server online at http://${bound.localAddress.getHostString}:${bound.localAddress.getPort}/")
     case Failure(e) =>
       Console.err.println(s"Server could not start!")
       e.printStackTrace()

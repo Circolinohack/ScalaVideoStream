@@ -5,5 +5,6 @@ lazy val root = (project in file(".")).
     organization    := "org.circolinohack",
     name := "Scala Video Stream",
     scalaVersion    := "2.12.7",
-    libraryDependencies ++= deps
+    libraryDependencies ++= deps,
+    scalafmtOnCompile := true
   )

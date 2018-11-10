@@ -7,7 +7,6 @@ object Dependencies {
 
   private lazy val akkaHttp: ModuleID = "com.typesafe.akka" %% "akka-http" % akkaHttpVersion
   private lazy val akkaHttpSprayJson: ModuleID = "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion
-  private lazy val akkaHttpXml: ModuleID = "com.typesafe.akka" %% "akka-http-xml" % akkaHttpVersion
   private lazy val akkaStream: ModuleID = "com.typesafe.akka" %% "akka-stream" % akkaVersion
 
   private lazy val akkaTestkit: ModuleID = "com.typesafe.akka" %% "akka-testkit" % akkaVersion % Test
@@ -17,7 +16,6 @@ object Dependencies {
 
   lazy val deps: Seq[ModuleID] = Seq(akkaHttp,
     akkaHttpSprayJson,
-    akkaHttpXml,
     akkaStream,
     akkaTestkit,
     akkaHttpTestkit,

@@ -332,7 +332,6 @@ tags
 ### Vuejs ###
 node_modules
 docs/_book
-test/
 
 ### Windows ###
 # Windows thumbnail cache files

@@ -17,7 +17,7 @@ object WebServer extends App with Directives {
   implicit val executionContext: ExecutionContext = system.dispatcher
 
   val route =
-    path("hello") {
+    path("stream") {
       getFromFile("./src/main/resources/big_buck_bunny_720p_30mb.mp4")
     }
 

@@ -1,45 +1,24 @@
 package org.circolinohack.scalavideostream
 
-import java.nio.file.FileSystems
-
-import akka.NotUsed
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
-import akka.http.scaladsl.server.directives.MethodDirectives.get
-import akka.http.scaladsl.server.directives.PathDirectives.path
-import akka.http.scaladsl.server.directives.RouteDirectives.complete
+import akka.http.scaladsl.server.Directives
+import akka.http.scaladsl.server.directives.ContentTypeResolver.Default
 import akka.stream.ActorMaterializer
-import akka.stream.alpakka.file.scaladsl.FileTailSource
-import akka.stream.scaladsl.Source
-import akka.util.ByteString
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.util.{Failure, Success}
 
-object WebServer extends App {
+object WebServer extends App with Directives {
 
   implicit val system: ActorSystem = ActorSystem("ScalaVideoStream")
   implicit val materializer: ActorMaterializer = ActorMaterializer()
   implicit val executionContext: ExecutionContext = system.dispatcher
 
-  val fs = FileSystems.getDefault
-
   val route =
     path("hello") {
-      get {
-        complete {
-          val chunks: Source[ByteString, NotUsed] = FileTailSource(
-            path =
-              fs.getPath("./src/main/resources/big_buck_bunny_720p_30mb.mp4"),
-            maxChunkSize = 8192,
-            startingPosition = 0,
-            pollingInterval = 250.millis
-          )
-          HttpEntity(ContentTypes.`application/octet-stream`, chunks)
-        }
-      }
+      getFromFile("./src/main/resources/big_buck_bunny_720p_30mb.mp4")
     }
 
   val serverBinding: Future[Http.ServerBinding] =

@@ -1,12 +1,9 @@
 package org.circolinohack
 
-//#user-registry-actor
 import akka.actor.{Actor, ActorLogging, Props}
 
-//#user-case-classes
 final case class User(name: String, age: Int, countryOfResidence: String)
 final case class Users(users: Seq[User])
-//#user-case-classes
 
 object UserRegistryActor {
   final case class ActionPerformed(description: String)
@@ -35,7 +32,6 @@ class UserRegistryActor extends Actor with ActorLogging {
       users.find(_.name == name) foreach { user =>
         users -= user
       }
-      sender() ! ActionPerformed(s"User ${name} deleted.")
+      sender() ! ActionPerformed(s"User $name deleted.")
   }
 }
-//#user-registry-actor
